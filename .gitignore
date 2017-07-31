@@ -1,0 +1,7 @@
+.project
+.pydevproject
+chromedriver_win32.zip
+geckodriver-v0.18.0-win64.zip
+*__pycache__*
+*client_secret.json
+*creds.yml
