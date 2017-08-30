@@ -62,7 +62,7 @@ def get_data():
     service = discovery.build('sheets', 'v4', http=http,
                               discoveryServiceUrl=discoveryUrl)
 
-    spreadsheetId = '1B5BHihx76uzMntdAk0nx-JrH6IpNI-wgPYcxPXifVeE'
+    spreadsheetId = '16sAAYUaOzITXA49Nmhy3TZ21ZXkqK_HmWSsbxNzwqYU'
     rangeName = 'Form Responses 1!A:D'
     result = service.spreadsheets().values().get(
         spreadsheetId=spreadsheetId, range=rangeName).execute()
@@ -127,6 +127,7 @@ def get_date(absent):
     Incoming format: DD-MMM
     Needs to return format M-D-YYYY; why, I don't know
     '''
+    absent = absent.rstrip().lstrip()
     datetime_object = datetime.strptime(absent, '%d-%b')
     datetime_object = datetime_object.replace(year=2017)
     out_time = datetime_object.strftime('%m-%d-%Y')
@@ -143,6 +144,8 @@ def main():
         load_members()
         print(member_dict)
         for info in data:
+            if len(info) < 3:
+                continue
             email = info[1]
             if "Email Address" in email:
                 continue
@@ -155,6 +158,7 @@ def main():
             for absent in absent_list.split(', '):
                 absence_date = get_date(absent)
                 abs_str = create_abs_str(member_name, absence_date)
+                print(abs_str)
                 abs_file.write(abs_str)
 
 
