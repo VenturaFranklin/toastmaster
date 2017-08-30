@@ -11,7 +11,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
 
-with open("schedule/creds.yml", 'r') as cred_file:
+with open("creds.yml", 'r') as cred_file:
     creds = yaml.load(cred_file)
 
 os.environ['path'] += r'E:\workspace\Toastmasters\drivers;'
@@ -57,7 +57,7 @@ def create_agenda(file_path):
 
 file_path = r'E:\Ventana Drive\Ventana (Work Stuff)\Toastmasters'\
              '\VentanaVoices\VP Ed. scheduling\TMI\ClubScheduler'\
-             '\Schedules\Schedule 08-03-2017.txt'
+             '\Schedules\Schedule 09-2017.txt'
 month_agenda = create_agenda(file_path)
 
 
@@ -93,18 +93,19 @@ for meeting_date, agenda in month_agenda.items():
     # OK the pop up that comes up
     time.sleep(1)
     driver.find_element_by_xpath("(//button[@type='button'])[42]").click()
+    print("SET THE DATE: ", meeting_date)
     time.sleep(10)
     # Set the date of meeting
 #     date_pick = driver.find_element_by_name('meetingdate')
 #     date_id = date_pick.get_attribute('id')
 #     driver.execute_script("document.getElementById('" + date_id +
 #                           "').setAttribute('value', '" + meeting_date + "')")
-    time.sleep(1)
     # Save changes
     driver.find_element_by_xpath("(//button[@type='button'])[39]").click()
     time.sleep(5)
     # Change to the meeting role tab
-    driver.find_element_by_id("ui-id-15").click()
+    print("SELECT THE ROLE TAB")
+#     driver.find_element_by_id("ui-id-15").click()
     time.sleep(5)
     # Find all rows of meeting agenda
     all_rows = driver.\
