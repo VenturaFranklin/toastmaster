@@ -62,7 +62,7 @@ def get_data():
     service = discovery.build('sheets', 'v4', http=http,
                               discoveryServiceUrl=discoveryUrl)
 
-    spreadsheetId = '16sAAYUaOzITXA49Nmhy3TZ21ZXkqK_HmWSsbxNzwqYU'
+    spreadsheetId = '1dhnhxlT6P9O7OWhRXVgp_IcfLDxeAmwiyD_0fnXVi_w'
     rangeName = 'Form Responses 1!A:D'
     result = service.spreadsheets().values().get(
         spreadsheetId=spreadsheetId, range=rangeName).execute()
@@ -128,8 +128,11 @@ def get_date(absent):
     Needs to return format M-D-YYYY; why, I don't know
     '''
     absent = absent.rstrip().lstrip()
-    datetime_object = datetime.strptime(absent, '%d-%b')
-    datetime_object = datetime_object.replace(year=2017)
+    try:
+        datetime_object = datetime.strptime(absent, '%d-%b')
+    except ValueError:
+        raise ValueError(f"Date could not be processed: {absent}")
+    datetime_object = datetime_object.replace(year=2018)
     out_time = datetime_object.strftime('%m-%d-%Y')
     out_time = out_time.lstrip("0").replace('-0', '-')
     return out_time
@@ -137,6 +140,7 @@ def get_date(absent):
 
 def main():
     data = get_data()
+    print("FOUND DATA\n", data)
     file_path = r'E:\Ventana Drive\Ventana (Work Stuff)\Toastmasters'\
                  '\VentanaVoices\VP Ed. scheduling\TMI\ClubScheduler\Data'\
                  '\Exceptions.dat'
@@ -156,6 +160,8 @@ def main():
                 func_req = None
             member_name = get_name(email)
             for absent in absent_list.split(', '):
+                if len(absent) == 0:
+                    continue
                 absence_date = get_date(absent)
                 abs_str = create_abs_str(member_name, absence_date)
                 print(abs_str)
