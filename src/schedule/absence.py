@@ -53,7 +53,7 @@ def get_data():
 
     Creates a Sheets API service object and prints the names and majors of
     students in a sample spreadsheet:
-    https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
+    https://docs.google.com/spreadsheets/d/1b_cPFW32a6DTW6uUPR1SgoB7hUNOMsuaLGB2eS_uaHw/edit
     """
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
@@ -62,7 +62,7 @@ def get_data():
     service = discovery.build('sheets', 'v4', http=http,
                               discoveryServiceUrl=discoveryUrl)
 
-    spreadsheetId = '1dhnhxlT6P9O7OWhRXVgp_IcfLDxeAmwiyD_0fnXVi_w'
+    spreadsheetId = '1yllnHABIdM-GLVDfwgwIHDJ8RGM0k_qLSinb3Hy4XeI'
     rangeName = 'Form Responses 1!A:D'
     result = service.spreadsheets().values().get(
         spreadsheetId=spreadsheetId, range=rangeName).execute()
