@@ -18,8 +18,9 @@ os.environ['path'] += r'E:\workspace\Toastmasters\drivers;'
 driver = webdriver.Firefox()
 # driver.implicitly_wait(10)
 driver.get('http://ventanavoices.toastmastersclubs.org/agenda.html')
-login_btn = driver.find_element_by_id("memberlogin")
-login_btn.click()
+# login_btn = driver.find_element_by_id("memberlogin")
+# time.sleep(2)
+# login_btn.click()
 user_in = driver.find_element_by_id("memberselect")
 user_in.send_keys(creds['user'])
 pass_in = driver.find_element_by_id("mpass")
@@ -57,7 +58,7 @@ def create_agenda(file_path):
 
 file_path = r'E:\Ventana Drive\Ventana (Work Stuff)\Toastmasters'\
              '\VentanaVoices\VP Ed. scheduling\TMI\ClubScheduler'\
-             '\Schedules\Schedule 09-2017.txt'
+             '\Schedules\Schedule 05-2018.txt'
 month_agenda = create_agenda(file_path)
 
 
@@ -92,7 +93,7 @@ for meeting_date, agenda in month_agenda.items():
         select_by_visible_text("Template 4: Ventana Voices 3:30-4:30")
     # OK the pop up that comes up
     time.sleep(1)
-    driver.find_element_by_xpath("(//button[@type='button'])[42]").click()
+#     driver.find_element_by_xpath("(//button[@type='button'])[42]").click()
     print("SET THE DATE: ", meeting_date)
     time.sleep(10)
     # Set the date of meeting
@@ -145,6 +146,7 @@ for meeting_date, agenda in month_agenda.items():
     # Close the Agenda Editor
     driver.find_element_by_xpath("(//button[@type='button'])[40]").click()
     time.sleep(5)
+    print("DONE!")
 
 driver.quit()
 
