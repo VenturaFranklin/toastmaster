@@ -40,10 +40,7 @@ def get_credentials():
     if not credentials or credentials.invalid:
         flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
         flow.user_agent = APPLICATION_NAME
-        if flags:
-            credentials = tools.run_flow(flow, store, flags)
-        else: # Needed only for compatibility with Python 2.6
-            credentials = tools.run(flow, store)
+        credentials = tools.run_flow(flow, store)
         print('Storing credentials to ' + credential_path)
     return credentials
 
@@ -62,7 +59,7 @@ def get_data():
     service = discovery.build('sheets', 'v4', http=http,
                               discoveryServiceUrl=discoveryUrl)
 
-    spreadsheetId = '1yllnHABIdM-GLVDfwgwIHDJ8RGM0k_qLSinb3Hy4XeI'
+    spreadsheetId = '1KyYKmRtJd_ppuFDqwvOc2tSnIri7HzBOT9VPDMvBMg8'
     rangeName = 'Form Responses 1!A:D'
     result = service.spreadsheets().values().get(
         spreadsheetId=spreadsheetId, range=rangeName).execute()
